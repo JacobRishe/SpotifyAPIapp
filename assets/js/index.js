@@ -824,3 +824,41 @@ function twentytwentyFindParents( target, query ) {
 
 	return parents;
 }
+
+const APIController = (function() {
+
+	const clientID = 'aadc884800f947229519650ede116752';
+	const clientSecret = 'df6e0aefd49248b3a5625d186d9d044c';
+
+	const _getToken = async () => {
+		const results = await fetch('https://accounts.spotify.com/api/token', {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/x-www-form-urlencoded',
+				'Authorization' : 'Basic' + btoa(clientID + ':' + clientSecret)
+			},
+			body: 'grant_type=client_credentials'
+		});
+
+		const data = await results.json();
+		return data.access_token;
+	}
+	
+	const _getGenres = async (token) => {
+	
+		const result = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+			method: 'GET',
+			headers: { 'Authorization' : 'Bearer ' + token}
+		});
+	}
+
+	return {
+		getToken() {
+			return _getToken()
+		},
+		getGenres() {
+			return _getGenres()
+		}
+	}
+})()
+

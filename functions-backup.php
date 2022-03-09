@@ -228,10 +228,10 @@ function twentytwenty_register_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'twentytwenty_register_scripts' );
 
-// function myprefix_add_inline_script() {
-// 	wp_add_inline_script( 'twentytwenty-js', 'alert("hello world")', 'after' );
-// }
-// add_action( 'wp_enqueue_scripts', 'myprefix_add_inline_script' );
+function myprefix_add_inline_script() {
+	wp_add_inline_script( 'twentytwenty-js', '', 'after' );
+}
+add_action( 'wp_enqueue_scripts', 'myprefix_add_inline_script' );
 
 /**
  * Fix skip link focus in IE11.
