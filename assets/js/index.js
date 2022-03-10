@@ -829,21 +829,8 @@ function twentytwentyFindParents( target, query ) {
 
 	const clientID = 'c893a447327743d28fd11b81e4e995ef';
 	const clientSecret = '04b454592adc4d6ca817fc4bc2cd6380';
-	// const redirectURI = 'http://localhost:8888/callback/'
-
-	// const _userAuth = async () => {
-	// 	const results = await fetch(`https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`, {
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'client_id': clientID,
-	// 			'response_type': 'code',
-	// 			'redirect_uri': redirectURI
-	// 		}
-	// 	})	
-	// }	
-
-	// _userAuth()
-
+	
+	// Made connection with API however token timed out. 
 	const _getToken = async () => {
 		const results = await fetch('https://accounts.spotify.com/api/token', {
 			method: 'POST',
@@ -852,11 +839,9 @@ function twentytwentyFindParents( target, query ) {
 				'Authorization' : 'Basic ' + btoa(clientID + ':' + clientSecret),
 			},
 			body: 'grant_type=client_credentials'
-			// body: 'grant_type=authorizartion_code'
 		});
 
 		const data = await results.json();
-		console.log(data, 'this is the data from api')
 		return data.access_token;
 	}
 	
@@ -870,43 +855,17 @@ function twentytwentyFindParents( target, query ) {
 		const results = await fetch('https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P%2C4VqPOruhp5EdPBeR92t6lQ%2C2takcwOaAZWiXQijPHIx7B', {  
 			method: 'GET',
 			headers: { 
-				'Authorization' : 'Bearer BQBWOV_wXmz9dZlKDD4l0-FCk11nEokCgGnQ0vdOORvuov9i6JodvzpHG_Dt6UlgRd1CoTe3VxnUUvqe48eZwxT0av7dTSff7SKibNIeZowLM7IQvdjNhdXBim1pKLRoY05o9kN5Q0ID1HbCPWDy49X-XU9vdjka0vQ' + token,
-				// 'Content-Type' : 'application/json'
+				'Authorization' : 'Bearer BQBWOV_wXmz9dZlKDD4l0-FCk11nEokCgGnQ0vdOORvuov9i6JodvzpHG_Dt6UlgRd1CoTe3VxnUUvqe48eZwxT0av7dTSff7SKibNIeZowLM7IQvdjNhdXBim1pKLRoY05o9kN5Q0ID1HbCPWDy49X-XU9vdjka0vQ' + token
 			}
 		});
 
 		const data = await results.json();
-		console.log(data, 'this is my track data!!!!!!!')
 		const artistName = data.tracks[0].album.artists[0].name
-		// console.log(artistName, 'this is the artist name')
 
-		
+		//displaying artist name
 		let artistNameContainer = document.getElementsByClassName('.artistData')
 		artistNameContainer.innerHTML = artistName
-		// console.log(artistNameContainer, 'this is the artist name container')
-			
-		console.log(artistName)
+		console.log(artistName, 'this is the artist name')
 	}
 	
 	_getTracks()
-	
-	
-
-	// const _getPlaylistByGenre = async (token, genreId) => {
-
-	// 	const limit = 10;
-
-	// 	const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
-	// 		method: 'GET',
-	// 		headers: { 'Authorization' : 'Bearer ' + token}
-	// 	});
-
-	// const data = await result.json();
-	// console.log(data, 'this is my playlist by genre')
-	// return data.playlist.items;
-
-	// }
-
-	// _getPlaylistByGenre()
-	
-
